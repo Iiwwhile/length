@@ -133,4 +133,5 @@ void outputResult(vector<double> dataResult){
 	for(vector<double>::iterator it=dataResult.begin(); it!=dataResult.end(); it++ ){
 		fileOut << setiosflags(ios_base::fixed) << setprecision(2) << (*it) << " m" << endl;
 	}
+	fileOut.close();
 }
