@@ -32,11 +32,11 @@ int main (){
 		string measureName;
 		double measureLength;
 		while(!is.eof()){
-			getline(is,line);
+			getline(is, line);
 			if(line.find("=") != line.npos){
-				measureName = line.substr(line.find_first_of(' ')+1,line.find_first_of('=')-line.find_first_of(' ')-2);
+				measureName = line.substr(line.find_first_of(' ')+1, line.find_first_of('=')-line.find_first_of(' ')-2);
 				measureLength = atof(line.substr(line.find_first_of('=')+1,11).c_str());
-				linearMeasureMap.insert (make_pair(measureName,measureLength));
+				linearMeasureMap.insert (make_pair(measureName, measureLength));
 			}
 			else{
 				break;
@@ -44,7 +44,7 @@ int main (){
 		}
 
 		while(!is.eof()){
-			getline(is,line);
+			getline(is, line);
 			if(line.find("=")==line.npos && line.length()!=0){
 				inputData readin;
 				//The expressed in different units of length are converted to the standard unit meters.
@@ -58,7 +58,7 @@ int main (){
 					int symbol=1;
 					vector<string> lineVec;
 					split(line, " ", lineVec);
-					for(vector<string>::iterator itr=lineVec.begin(); itr!=lineVec.end();){
+					for(vector<string>::iterator itr=lineVec.begin(); itr!=lineVec.end(); ){
 						readin.value = atof((*itr).c_str());
 						readin.measure = *(++itr);
 						r += symbol * toMetre(readin, linearMeasureMap);
@@ -93,12 +93,12 @@ double toMetre(inputData &id, map<string, double> linearMeasureMap){
 	else if(id.measure == "furlongs"){id.measure = "furlong";}
 
 	map<string, double>::iterator iter = linearMeasureMap.find(id.measure);
-	if(iter==linearMeasureMap.end()){
+	if(iter == linearMeasureMap.end()){
 		cout << id.measure << "is not available" << endl;
 		return 0;
 	}
 	else{
-		return id.value * iter->second;
+		return id.value * (iter->second);
 	}
 }
 
@@ -128,9 +128,9 @@ void split(const string &src, const string &separator, vector<string> &dest)
 
 void outputResult(vector<double> dataResult){
 	ofstream fileOut("output.txt");
-	fileOut<<"1013465716@qq.com"<<endl;
-	fileOut<<endl;
+	fileOut << "1013465716@qq.com" << endl;
+	fileOut << endl;
 	for(vector<double>::iterator it=dataResult.begin(); it!=dataResult.end(); it++ ){
-		fileOut<<setiosflags(ios_base::fixed)<<setprecision(2)<<(*it)<<" m"<<endl;
+		fileOut << setiosflags(ios_base::fixed) << setprecision(2) << (*it) << " m" << endl;
 	}
 }
